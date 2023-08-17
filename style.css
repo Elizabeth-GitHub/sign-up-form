@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+.left-column {
+    background-image: url(./background.jpg);
+    width: 40%;
+}
+
+#logo {
+    font-size: larger;
+    color: aliceblue;
+    display: flex;
+    align-items: center;
+}
+
+#logo::before {
+   content: url(./odin-logo.png);
+}
