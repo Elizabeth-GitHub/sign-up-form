@@ -1,21 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+a {
+    text-decoration: none;
+}
+
+a, a:visited {
+    color: inherit;
+}
+
+input {
+    line-height: 2em;
+}
+
+label {
+    margin-top: 5%;
+}
+
+#introducing-text p {
+    width: 60ch;
+    font-size: 1.5em;
+}
+
+form {
+    flex-direction: column;
+    width: 80%;
+}
+
+form > :first-child {
+    margin-top: 1em;
+}
+
+form > * {
+    margin-left: 3%;
+}
+
 .container {
     display: flex;
+}
+
+.blank-before {
+    margin-top: 1em;
+}
+
+.input {
+    appearance: none;
+    -webkit-appearance: none;
+    flex-direction: column;
+    flex: 45%;
+}
+
+#main-container {
     width: 100vw;
     height: 100vh;
 }
 
-.left-column {
-    background-image: url(./background.jpg);
+#left-column {
+    background-image: url(./images/background.jpg);
     width: 40%;
+    position: relative;
+    color: aliceblue;
 }
 
 #logo {
-    font-size: larger;
-    color: aliceblue;
-    display: flex;
+    height: 20vh;
+    width: 100%;
+    margin-top: 15vh;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background-color: rgba(50, 50, 50, 0.3);
+}
+
+#logo-title {
+    font-size: 7em;
+    margin-left: -2%;
+}
+
+#logo-image {
+    height: 100%;
+} 
+
+#footer {
+    width: 100%;
+    justify-content: center;
+    margin-top: auto;
+    margin-bottom: 0.5%;
+    flex-direction: column;
     align-items: center;
 }
 
-#logo::before {
-   content: url(./odin-logo.png);
+#right-column {
+    flex-direction: column;
+    width: 60%;
+}
+
+
+#introducing-text {
+    background-color: rgba(244, 244, 244, 0.9);
+    height: 35vh;
+    width: 100%;
+}
+
+#introducing-text p:first-child {
+    margin-top: 7%;
+}
+
+#introducing-text > * {
+    margin-left: 3%;
+}
+
+#inputs {
+    flex-wrap: wrap;
+    background-color: white;
+}
+
+#inputs .container.input:nth-child(even){
+    margin-left: 10%;
 }
