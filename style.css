@@ -1,8 +1,20 @@
+@font-face {
+    font-family: 'Norse Bold';
+    src:
+        url('./norse-bold.otf') 
+        format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    
+    box-sizing: border-box; 
+}
+
+body {
+    background-color: rgba(244, 244, 244, 0.9);
 }
 
 a {
@@ -14,47 +26,63 @@ a, a:visited {
 }
 
 input {
+    appearance: none;
+    outline: none;
     line-height: 2em;
+    border-color: #E5E7EB;
+}
+
+input:focus {
+    border-color: lightblue;
+}
+
+input:invalid {
+    border-color: red;
 }
 
 label {
     margin-top: 5%;
 }
 
-#introducing-text p {
-    width: 60ch;
-    font-size: 1.5em;
-}
-
 form {
-    flex-direction: column;
-    width: 80%;
+    width: 20%;
 }
 
 form > :first-child {
-    margin-top: 1em;
+    padding-top: 1em;
 }
 
-form > * {
-    margin-left: 3%;
+button {
+    background-color: #596D48;
 }
 
 .container {
     display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .blank-before {
-    margin-top: 1em;
+    margin-top: 2em;
 }
 
 .input {
-    appearance: none;
-    -webkit-appearance: none;
-    flex-direction: column;
+    /*appearance: none;
+    -webkit-appearance: none;*/
     flex: 45%;
 }
 
+#white-background {
+    background-color: white;
+    padding-bottom: 1em; 
+}
+
+#white-background, .grey-background {
+    padding-left: 2vw;
+}
+
 #main-container {
+    flex-direction: row;
     width: 100vw;
     height: 100vh;
 }
@@ -74,10 +102,13 @@ form > * {
     justify-content: center;
     position: absolute;
     background-color: rgba(50, 50, 50, 0.3);
+    flex-direction: row;
 }
 
 #logo-title {
-    font-size: 7em;
+    font-family: 'Norse Bold', sans-serif;
+    text-align: center;
+    font-size: 10em;
     margin-left: -2%;
 }
 
@@ -97,8 +128,8 @@ form > * {
 #right-column {
     flex-direction: column;
     width: 60%;
+    position: relative;
 }
-
 
 #introducing-text {
     background-color: rgba(244, 244, 244, 0.9);
@@ -106,17 +137,19 @@ form > * {
     width: 100%;
 }
 
+#introducing-text p {
+    width: 60ch;
+    font-size: 1.5em;
+}
+
 #introducing-text p:first-child {
     margin-top: 7%;
 }
 
-#introducing-text > * {
-    margin-left: 3%;
-}
-
 #inputs {
+    flex-direction: row;
     flex-wrap: wrap;
-    background-color: white;
+    width: 30%;
 }
 
 #inputs .container.input:nth-child(even){
