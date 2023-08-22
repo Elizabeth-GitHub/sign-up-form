@@ -51,6 +51,10 @@ form > :first-child {
 
 button {
     background-color: #596D48;
+    width: 7vw;
+    height: 4vh;
+    border-radius: 10px;
+    font-weight: 600;
 }
 
 .container {
@@ -61,6 +65,16 @@ button {
 
 #introducing-text p:last-child {
     margin-top: 3em;
+}
+
+#green-link {
+    text-decoration: none;
+    color: #596D48;
+    font-weight: 600;
+}
+
+#right-column button, p:last-child {
+    margin-top: 2.5em;
 }
 
 .input {
@@ -91,6 +105,10 @@ button {
     background-image: url(./images/background.jpg);
     width: 40%;
     position: relative;
+    
+}
+
+.white-text {
     color: aliceblue;
 }
 
