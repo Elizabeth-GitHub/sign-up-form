@@ -15,10 +15,7 @@
 
 body {
     background-color: rgba(244, 244, 244, 0.9);
-}
-
-a {
-    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
 }
 
 a, a:visited {
@@ -62,14 +59,17 @@ button {
     width: 100%;
 }
 
-.blank-before {
-    margin-top: 2em;
+#introducing-text p:last-child {
+    margin-top: 3em;
 }
 
 .input {
-    /*appearance: none;
-    -webkit-appearance: none;*/
     flex: 45%;
+}
+
+.big-font {
+    font-size: 1.5em;
+    font-weight: 600;
 }
 
 #white-background {
@@ -97,7 +97,7 @@ button {
 #logo {
     height: 20vh;
     width: 100%;
-    margin-top: 15vh;
+    margin-top: 20vh;
     align-items: center;
     justify-content: center;
     position: absolute;
@@ -132,18 +132,16 @@ button {
 }
 
 #introducing-text {
-    background-color: rgba(244, 244, 244, 0.9);
-    height: 35vh;
+    height: 40vh;
     width: 100%;
 }
 
 #introducing-text p {
     width: 60ch;
-    font-size: 1.5em;
 }
 
 #introducing-text p:first-child {
-    margin-top: 7%;
+    margin-top: 15vh;
 }
 
 #inputs {
