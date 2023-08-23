@@ -136,11 +136,10 @@ button {
 
 #footer {
     width: 100%;
-    justify-content: center;
     margin-top: auto;
     margin-bottom: 0.5%;
-    flex-direction: column;
     align-items: center;
+    border: 1px solid white;
 }
 
 #right-column {
@@ -174,7 +173,7 @@ button {
 
 #container-button::before {
     content: '';
-    width: 100%;
+    width: 59.5vw; /* The width of the right column is 60vw and the left margin of the shadow is o.5vw.*/
     height: 1vh;
     border: 1px solid   rgba(244, 244, 244, 0.9);
     position: absolute;
