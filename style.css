@@ -33,6 +33,11 @@ a, a:visited {
     color: inherit;
 }
 
+form p:first-child {
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;;
+}
+
 input {
     appearance: none;
     -webkit-appearance: none;
@@ -46,24 +51,19 @@ input:focus {
     border-color: var(--blue);
 }
 
-input:invalid {
+.invalid {
     border-color: var(--red);
 }
 
+.valid {
+    border-color: green;
+}
+
 label {
-    margin-top: 5%;
     font-size: 0.75rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--matt-black);
     letter-spacing: 0.1rem;
-}
-
-form {
-    width: 20%;
-}
-
-form > :first-child {
-    padding-top: 1em;
 }
 
 button {
@@ -94,26 +94,19 @@ button {
     font-weight: 600;
 }
 
-#right-column button, #right-column p:last-child {
+#right-column button {
     margin-top: 2.5em;
+    margin-bottom: 3em;
 }
 
 .input {
-    flex: 45%;
+    flex: 40%;
+    margin-bottom: 1.5em;
 }
 
 .big-font {
-    font-size: 1.5em;
+    font-size: 1.75em;
     font-weight: 600;
-}
-
-#white-background {
-    background-color: white;
-    padding-bottom: 1em; 
-}
-
-#white-background, .grey-background {
-    padding-left: 2vw;
 }
 
 #main-container {
@@ -128,6 +121,19 @@ button {
     position: relative;
     
 }
+
+#white-background {
+    background-color: white;
+    padding-bottom: 1em; 
+}
+
+#white-background, .grey-background {
+    padding-left: 2vw;
+}
+
+
+
+
 
 .white-text {
     color: aliceblue;
@@ -183,11 +189,11 @@ button {
 #inputs {
     flex-direction: row;
     flex-wrap: wrap;
-    width: 30%;
+    width: 30vw;
 }
 
 #inputs .container.input:nth-child(even){
-    margin-left: 10%;
+    margin-left: 15%;
 }
 
 #container-button::before {
@@ -205,10 +211,7 @@ button {
     width: 100%;
     padding: 0;
     font-size: 80%;
-    color: white;
-    background-color: var(--red);
-    border-radius: 0 0 5px 5px;
-    box-sizing: border-box;
+    color: var(--red);
   }
   
   .error.active {

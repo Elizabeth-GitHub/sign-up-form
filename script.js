@@ -9,9 +9,12 @@ inputs.forEach(({ input, error }) => {
         const isValid = validateFirstLastName(input.value);
 
         if (isValid) {
+            input.classList.remove('invalid');
+            input.classList.add('valid');
             clearError(error);
         } else {
-            console.log('Invalid name');
+            input.classList.remove('valid');
+            input.classList.add('invalid');
             showError(error);
         }
     });
@@ -24,7 +27,6 @@ function validateFirstLastName(nameToValidate) {
 }
 
 function showError(errorElement) {
-    console.log(errorElement.id);
     errorElement.textContent = `Your ${getNameToCorrect(errorElement.id)} should consist of letters only.`;
     errorElement.className = 'error active';
 }
