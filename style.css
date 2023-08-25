@@ -13,6 +13,7 @@
     --grayish-green: #596D48;
     --transculent-greysilver: #C8C8C866;
     --transculent-charcoal: #3232324D;
+    --matt-black: #151515F7;
     --red: #E74C3C;
     --blue: #3498DB;
 }
@@ -51,6 +52,10 @@ input:invalid {
 
 label {
     margin-top: 5%;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--matt-black);
+    letter-spacing: 0.1rem;
 }
 
 form {
@@ -74,6 +79,10 @@ button {
     flex-direction: column;
     width: 100%;
 }
+
+.required:after {
+    content:"*";
+  }
 
 #introducing-text p:last-child {
     margin-top: 3em;
