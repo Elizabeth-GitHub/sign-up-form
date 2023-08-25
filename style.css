@@ -7,6 +7,16 @@
     font-style: normal;
 }
 
+:root {
+    --background-grey: #F4F4F4E6;
+    --light-grey: #E5E7EB;
+    --grayish-green: #596D48;
+    --transculent-greysilver: #C8C8C866;
+    --transculent-charcoal: #3232324D;
+    --red: #E74C3C;
+    --blue: #3498DB;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -14,12 +24,8 @@
 }
 
 body {
-    background-color: rgba(244, 244, 244, 0.9);
+    background-color: var(--background-grey);
     font-family: 'Open Sans', sans-serif;
-}
-
-p {
-    appearance: none;
 }
 
 a, a:visited {
@@ -28,17 +34,19 @@ a, a:visited {
 
 input {
     appearance: none;
+    -webkit-appearance: none;
     outline: none;
     line-height: 2em;
-    border-color: #E5E7EB;
+    border: 0.5px solid var(--light-grey);
+    border-radius: 5px;
 }
 
 input:focus {
-    border-color: lightblue;
+    border-color: var(--blue);
 }
 
 input:invalid {
-    border-color: red;
+    border-color: var(--red);
 }
 
 label {
@@ -54,7 +62,7 @@ form > :first-child {
 }
 
 button {
-    background-color: #596D48;
+    background-color: var(--grayish-green);
     width: 7vw;
     height: 4vh;
     border-radius: 10px;
@@ -73,7 +81,7 @@ button {
 
 #green-link {
     text-decoration: none;
-    color: #596D48;
+    color: var(--grayish-green);
     font-weight: 600;
 }
 
@@ -123,7 +131,7 @@ button {
     align-items: center;
     justify-content: center;
     position: absolute;
-    background-color: rgba(50, 50, 50, 0.3);
+    background-color: var(--transculent-charcoal);
     flex-direction: row;
 }
 
@@ -177,22 +185,20 @@ button {
     content: '';
     width: 59.5vw; /* The width of the right column is 60vw and the left margin of the shadow is o.5vw.*/
     height: 1vh;
-    border: 1px solid   rgba(244, 244, 244, 0.9);
-    position: absolute;
     left: 0.5vw;
+    border: 1px solid  var(--background-grey);
+    position: absolute;
     box-sizing: inherit;
-    background-image: linear-gradient(to bottom, rgba(200, 200, 200, 0.4), rgba(244, 244, 244, 0.9));
+    background-image: linear-gradient(to bottom, var(--transculent-greysilver), var(--background-grey));
 }
 
 .error {
     width: 100%;
     padding: 0;
-  
     font-size: 80%;
     color: white;
-    background-color: #900;
+    background-color: var(--red);
     border-radius: 0 0 5px 5px;
-  
     box-sizing: border-box;
   }
   
