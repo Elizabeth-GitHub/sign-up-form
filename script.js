@@ -21,7 +21,7 @@ inputs.forEach(({ input, error }) => {
 });
 
 function validateFirstLastName(nameToValidate) {
-    const regexNames = /^\p{L}+$/u;
+    const regexNames = /^(\p{L}+)?$/u; /* The regex allows an empty entry as it will be checked before the sumbission.*/
     
     return regexNames.test(nameToValidate);  
 }
