@@ -45,6 +45,7 @@ input {
     line-height: 2em;
     border: 0.5px solid var(--light-grey);
     border-radius: 5px;
+    width: 100%;
 }
 
 input:focus {
@@ -68,6 +69,7 @@ label {
 
 button {
     background-color: var(--grayish-green);
+
     width: 7vw;
     height: 4vh;
     border-radius: 10px;
@@ -133,6 +135,10 @@ button {
 
 
 
+/*.completed {
+    background-color: green;
+}*/
+
 
 
 .white-text {
@@ -192,7 +198,7 @@ button {
     width: 30vw;
 }
 
-#inputs .container.input:nth-child(even){
+#inputs .container.input:nth-child(even):not(.input-itself){
     margin-left: 15%;
 }
 
@@ -218,3 +224,20 @@ button {
     padding: 0.3em;
   }
 
+  .input-itself {
+    flex-direction: row;
+    position: relative;
+    padding: 0;
+    width: 100%;
+  }
+
+.input-itself:has(input.completed)::after {
+    content: '';
+    width: 5%; 
+    height: 60%;
+    background-image: url('images/green-tick1.png');
+    background-repeat: no;
+    background-size: 100% auto; 
+    margin-top: 0.2em; 
+    margin-left: 0.2em;;
+}

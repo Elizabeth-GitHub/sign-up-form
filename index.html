@@ -27,18 +27,22 @@
                     <p class="big-font">Sign up <em>now</em> to get started.</p>
                     <p class="big-font">You <em>know</em> you want to.</p>
                 </div>
-                <form class="container" action="#" method="post" novalidate>
+                <form id="form-subscription" class="container" action="#" method="post" novalidate>
                     <div id="white-background" class="container">
                         <p class="big-font">Let's do this!</p>
                         <div id="inputs" class="container">
                             <div class="container input">
                                 <label for="first-name" class="required">FIRST NAME</label>
-                                <input type="text" id="first-name" name="first-name" required minlength="1">
+                                <div class="container input input-itself">
+                                    <input type="text" id="first-name" name="first-name" required minlength="1">
+                                </div>
                                 <span id="firstname-error" class="error" aria-live="polite"></span>
                             </div>
                             <div class="container input">
                                 <label for="last-name" class="required">LAST NAME</label>
-                                <input type="text" id="last-name" name="last-name" required minlength="1">
+                                <div class="container input input-itself">
+                                    <input type="text" id="last-name" name="last-name" required minlength="1">
+                                </div>
                                 <span id='lastname-error' class="error" aria-live="polite"></span>
                             </div>
                             <div class="container input">

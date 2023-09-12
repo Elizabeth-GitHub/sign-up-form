@@ -1,24 +1,31 @@
-const form = document.querySelector('form');
-const inputs = [
-    { input: document.getElementById('first-name'), error: document.querySelector('#first-name + span.error') },
-    { input: document.getElementById('last-name'), error: document.querySelector('#last-name + span.error') }
+const form = document.getElementById('form-subscription');
+const inputsName = [
+    { inputName: document.getElementById('first-name'), errorName: document.getElementById('firstname-error') },
+    { inputName: document.getElementById('last-name'), errorName: document.getElementById('lastname-error') }
 ];
 
-inputs.forEach(({ input, error }) => {
-    input.addEventListener('input', () => {
-        const isValid = validateFirstLastName(input.value);
+inputsName.forEach(({ inputName, errorName }) => {
+    inputName.addEventListener('input', () => {
+        const isValid = validateFirstLastName(inputName.value);
 
         if (isValid) {
-            input.classList.remove('invalid');
-            input.classList.add('valid');
-            clearError(error);
+            inputName.classList.remove('invalid');
+            inputName.classList.add('valid');
+            clearErrorName(errorName);
+            if (!checkIfEmpty(inputName.value)) {
+                inputName.classList.add('completed');
+            }
         } else {
-            input.classList.remove('valid');
-            input.classList.add('invalid');
-            showError(error);
+            inputName.classList.remove('valid', 'completed');
+            inputName.classList.add('invalid');
+            showErrorName(errorName);
         }
     });
 });
+
+function checkIfEmpty(fieldToCheck) {
+    return fieldToCheck.length === 0;
+}
 
 function validateFirstLastName(nameToValidate) {
     const regexNames = /^(\p{L}+)?$/u; /* The regex allows an empty entry as it will be checked before the sumbission.*/
@@ -26,14 +33,14 @@ function validateFirstLastName(nameToValidate) {
     return regexNames.test(nameToValidate);  
 }
 
-function showError(errorElement) {
-    errorElement.textContent = `Your ${getNameToCorrect(errorElement.id)} should consist of letters only.`;
-    errorElement.className = 'error active';
+function showErrorName(errorNameElementToShow) {
+    errorNameElementToShow.textContent = `Your ${getNameToCorrect(errorNameElementToShow.id)} should consist of letters only.`;
+    errorNameElementToShow.className = 'error active';
 }
 
-function clearError(errorElement) {
-    errorElement.textContent = '';
-    errorElement.className = 'error';
+function clearErrorName(errorNameElementToClear) {
+    errorNameElementToClear.textContent = '';
+    errorNameElementToClear.className = 'error';
 }
 
 function getNameToCorrect(nameToTransform) {
