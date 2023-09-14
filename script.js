@@ -1,37 +1,39 @@
 const form = document.getElementById('form-subscription');
-const inputsName = [
+const inputNames = [
     { inputName: document.getElementById('first-name'), errorName: document.getElementById('firstname-error') },
     { inputName: document.getElementById('last-name'), errorName: document.getElementById('lastname-error') }
 ];
 
-inputsName.forEach(({ inputName, errorName }) => {
+inputNames.forEach(({ inputName, errorName }) => {
     inputName.addEventListener('input', () => {
         const isValid = validateFirstLastName(inputName.value);
 
         if (isValid) {
-            toggleValidity(inputName);
             clearErrorName(errorName);
-            if (!checkIfEmpty(inputName.value)) {
-                inputName.classList.add('completed');
-            }
-        } else {
+            toggleValidity(inputName);
+            toggleCompletion(inputName);
+        } else { /* We don't need `toggleCompletion` here, as the 'completed' class is removed for invalid input in the `toggleValidity` function */
             toggleValidity(inputName, false);
-            showErrorName(errorName);
+            showErrorName(errorName); 
         }
     });
 });
 
-function toggleValidity(variableToToggle, toValid = true) {
+function checkIfEmpty(inputToCheckEmptiness) {
+    return inputToCheckEmptiness.length === 0;
+}
+ 
+function toggleValidity(inputToToggleValidity, toValid = true) {
     const [classToAdd, classesToRemove] = toValid ? ['valid', ['invalid']] : ['invalid', ['valid', 'completed']];
 
-    variableToToggle.classList.add(classToAdd);
+    inputToToggleValidity.classList.add(classToAdd);
     classesToRemove.forEach(classToRemove => {
-        variableToToggle.classList.remove(classToRemove);
+        inputToToggleValidity.classList.remove(classToRemove);
     });
 }
 
-function checkIfEmpty(fieldToCheck) {
-    return fieldToCheck.length === 0;
+function toggleCompletion(inputToToggleCompletion) {
+    inputToToggleCompletion.classList.toggle('completed', !checkIfEmpty(inputToToggleCompletion.value));
 }
 
 function validateFirstLastName(nameToValidate) {

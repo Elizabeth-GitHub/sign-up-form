@@ -101,7 +101,7 @@ button {
     margin-bottom: 3em;
 }
 
-.input {
+.field {
     flex: 40%;
     margin-bottom: 1.5em;
 }
@@ -190,7 +190,7 @@ button {
     width: 30vw;
 }
 
-#inputs .container.input:nth-child(even):not(.input-itself){
+#inputs .container.field:nth-child(even):not(.input){
     margin-left: 15%;
 }
 
@@ -216,14 +216,14 @@ button {
     padding: 0.3em;
   }
 
-  .input-itself {
+  .input {
     flex-direction: row;
     position: relative;
     padding: 0;
     width: 100%;
   }
 
-.input-itself:has(input.completed)::after {
+.input:has(input.completed)::after {
     content: '';
     width: 5%; 
     height: 60%;
