@@ -9,19 +9,26 @@ inputsName.forEach(({ inputName, errorName }) => {
         const isValid = validateFirstLastName(inputName.value);
 
         if (isValid) {
-            inputName.classList.remove('invalid');
-            inputName.classList.add('valid');
+            toggleValidity(inputName);
             clearErrorName(errorName);
             if (!checkIfEmpty(inputName.value)) {
                 inputName.classList.add('completed');
             }
         } else {
-            inputName.classList.remove('valid', 'completed');
-            inputName.classList.add('invalid');
+            toggleValidity(inputName, false);
             showErrorName(errorName);
         }
     });
 });
+
+function toggleValidity(variableToToggle, toValid = true) {
+    const [classToAdd, classesToRemove] = toValid ? ['valid', ['invalid']] : ['invalid', ['valid', 'completed']];
+
+    variableToToggle.classList.add(classToAdd);
+    classesToRemove.forEach(classToRemove => {
+        variableToToggle.classList.remove(classToRemove);
+    });
+}
 
 function checkIfEmpty(fieldToCheck) {
     return fieldToCheck.length === 0;
