@@ -54,7 +54,10 @@
                             </div>
                             <div class="container field">
                                 <label for="phone">PHONE NUMBER</label>
-                                <input type="tel" id="phone" name="phone">
+                                <div class="container input">
+                                    <input type="tel" id="phone" name="phone" placeholder="ex.: +(123)1234567890">
+                                </div>
+                                <span id="phone-error" class="error" aria-live="polite"></span>
                             </div>
                             <div class="container field">
                                 <label for="password" class="required">PASSWORD</label>

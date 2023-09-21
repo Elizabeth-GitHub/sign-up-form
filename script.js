@@ -9,13 +9,15 @@ const nameFields = [
 ];
 const email = document.getElementById('email');
 const errorEmail =  document.getElementById('email-error')
+const phone = document.getElementById('phone');
+const errorPhone = document.getElementById('phone-error');
 
 nameFields.forEach(({inputName, errorName}) => {
     inputName.addEventListener('input', () => {
         const isValidName = validateName(inputName.value);
 
         if (isValidName) {
-            clearErrorName(errorName);
+            clearError(errorName);
             toggleValidity(inputName);
             toggleCompletion(inputName);
         } else {
@@ -29,72 +31,82 @@ email.addEventListener('input', () => {
     const isValidEmail = validateEmail(email.value);
 
     if(isValidEmail) {
-        clearErrorEmail();
+        clearError(errorEmail);
         toggleCompletion(email);
+        toggleValidity(email);
     } else {
         showErrorEmail();
+        toggleValidity(email, false);
     }
-}
-)
+})
+
+phone.addEventListener('input', () => {
+    const isValidPhone = validatePhone(phone.value);
+    
+    if(isValidPhone) {
+        clearError(errorPhone);
+        toggleCompletion(phone);
+        toggleValidity(phone);
+    } else {
+        showErrorPhone();
+        toggleValidity(phone, false);
+    }
+
+})
 
 function checkIfEmpty(inputToCheckEmptiness) {
     return inputToCheckEmptiness.length === 0;
 }
  
-function toggleValidity(inputToToggleValidity, toValid = true) {
+function toggleValidity(fieldToToggleValidity, toValid = true) {
     const [classToAdd, classesToRemove] = toValid ? ['valid', ['invalid']] : ['invalid', ['valid', 'completed']];
 
-    inputToToggleValidity.classList.add(classToAdd);
+    fieldToToggleValidity.classList.add(classToAdd);
     classesToRemove.forEach(classToRemove => {
-        inputToToggleValidity.classList.remove(classToRemove);
+        fieldToToggleValidity.classList.remove(classToRemove);
     });
 }
 
-function toggleCompletion(inputToToggleCompletion) {
-    inputToToggleCompletion.classList.toggle('completed', !checkIfEmpty(inputToToggleCompletion.value));
+function toggleCompletion(fieldToToggleCompletion) {
+    fieldToToggleCompletion.classList.toggle('completed', !checkIfEmpty(fieldToToggleCompletion.value));
 }
 
 function validateName(nameToValidate) {
-    const regexNames = /^(\p{L}+)?$/u; /* The regex allows an empty entry as it will be checked before the sumbission.*/
+    const regexName = /^(\p{L}+)?$/u; /* The regex allows an empty entry as it will be checked before the sumbission.*/
     
-    return regexNames.test(nameToValidate);  
+    return regexName.test(nameToValidate);  
 }
 
 function validateEmail(emailToValidate) {
-    const regexEmails =  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const regexEmail =  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$|^$/;
 
-    return regexEmails.test(emailToValidate);
+    return regexEmail.test(emailToValidate);
+}
+
+function validatePhone(phoneToValidate) {
+    const regexPhone = /^\(\+\d+\)\d{10}$|^$//*(+886)1234567890 or empty*/
+
+    return regexPhone.test(phoneToValidate);
 }
 
 function showErrorName(errorNameToShow) {
-    console.log(errorNameToShow);
-    errorNameToShow.textContent = `Your ${getIncorrectName(errorNameToShow.id)} should consist of letters only.`;
-    console.log(errorNameToShow.textContent);
-    errorNameToShow.classList.add('active');
+    errorNameToShow.textContent = `Your ${getInvalidName(errorNameToShow.id)} should consist of letters only.`;
 }
 
-function clearErrorName(errorNameElementToClear) {
-    errorNameElementToClear.textContent = '';
-    errorNameElementToClear.classList.remove('active');
-}
-
-function getIncorrectName(nameToTransform) {
+function getInvalidName(nameToTransform) {
     const removeError = nameToTransform.replace('-error', ''); /*nameToTranform can be either firstName-error or lastName-error*/
-    console.log(`getIncorrectName: ${removeError[0].toLowerCase() + removeError.slice(1).replace('name', ' name')}`);
     return removeError[0].toLowerCase() + removeError.slice(1).replace('name', ' name');
 }
 
+function clearError(errorToClear) {
+    errorToClear.textContent = '';
+    errorToClear.classList.remove('active');
+}
+
 function showErrorEmail() {
-    errorEmail.textContent = 'Incorrect email address';
-    errorEmail.classList.add('active');
-    errorEmail.classList.remove('complete');
+    errorEmail.textContent = 'Invalid email address.';
 }
 
-function clearErrorEmail() {
-    errorEmail.textContent = '';
-    errorEmail.classList.remove('active');
-}
-
-function getErrorName(nameId) {
-    return 'error' + nameId[0].toUpperCase() + nameId.slice(1).replace('-n', 'N'); /*For example, nameId = 'first-name', the function will output 'errorFirstName'*/
+function showErrorPhone() {
+    errorPhone.textContent = 'Required format: (+dial code)##########.'
 }
