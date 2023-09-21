@@ -16,43 +16,31 @@ nameFields.forEach(({inputName, errorName}) => {
     inputName.addEventListener('input', () => {
         const isValidName = validateName(inputName.value);
 
-        if (isValidName) {
-            clearError(errorName);
-            toggleValidity(inputName);
-            toggleCompletion(inputName);
-        } else {
-            toggleValidity(inputName, false);
-            showErrorName(errorName);
-        }
+        handleValidityStatus(inputName, errorName, isValidName);
     });
 });
 
 email.addEventListener('input', () => {
     const isValidEmail = validateEmail(email.value);
 
-    if(isValidEmail) {
-        clearError(errorEmail);
-        toggleCompletion(email);
-        toggleValidity(email);
-    } else {
-        showErrorEmail();
-        toggleValidity(email, false);
-    }
+    handleValidityStatus(email, errorEmail, isValidEmail);
 })
 
 phone.addEventListener('input', () => {
     const isValidPhone = validatePhone(phone.value);
-    
-    if(isValidPhone) {
-        clearError(errorPhone);
-        toggleCompletion(phone);
-        toggleValidity(phone);
-    } else {
-        showErrorPhone();
-        toggleValidity(phone, false);
-    }
 
+    handleValidityStatus(phone, errorPhone, isValidPhone);
 })
+
+function handleValidityStatus(fieldInput, fieldError, isValidInput) {
+    if (isValidInput) {
+        clearError(fieldError);
+        toggleCompletion(fieldInput);
+        toggleValidity(fieldInput);
+    } else {
+        showError(fieldError);
+    }
+}
 
 function checkIfEmpty(inputToCheckEmptiness) {
     return inputToCheckEmptiness.length === 0;
@@ -87,6 +75,23 @@ function validatePhone(phoneToValidate) {
     const regexPhone = /^\(\+\d+\)\d{10}$|^$//*(+886)1234567890 or empty*/
 
     return regexPhone.test(phoneToValidate);
+}
+
+function showError(errorToShow) {
+    let errorMessage = '';
+
+    switch (errorToShow.id.slice(0, -6)) { /*error id is always in the format '-error', for example, 'email-error'*/
+        case 'email':
+        errorMessage = 'Invalid email address.';
+        break;
+        case 'phone':
+        errorMessage = 'Required format: (+dial code)##########.';
+        break;
+        default:
+        errorMessage = `Your ${getInvalidName(errorToShow.id)} should consist of letters only.`
+    }
+
+    errorToShow.textContent = errorMessage;
 }
 
 function showErrorName(errorNameToShow) {
