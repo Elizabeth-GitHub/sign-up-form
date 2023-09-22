@@ -51,16 +51,11 @@ confirmPassword.addEventListener('input', () => {
 
 buttonsChangeVisibility.forEach((buttonChangeVisibility) => {
     buttonChangeVisibility.addEventListener('click', (event) => {
-        const fieldToHideVisibility = document.getElementById(event.target.getAttribute('data-target'));
-        console.log(fieldToHideVisibility);
+        const elementToChangeVisibility = document.getElementById(event.target.getAttribute('data-target'));
 
-        if (fieldToHideVisibility.type === 'password') {
-            fieldToHideVisibility.type = 'text';
-        } else {
-            fieldToHideVisibility.type = 'password';
-        }
+        toggleVisibility(elementToChangeVisibility);
         buttonChangeVisibility.classList.toggle('visible');
-    });
+});
 
 
     })
@@ -92,6 +87,10 @@ function toggleValidity(fieldToToggleValidity, toValid = true) {
 
 function toggleCompletion(fieldToToggleCompletion) {
     fieldToToggleCompletion.classList.toggle('completed', !checkIfEmpty(fieldToToggleCompletion.value));
+}
+
+function toggleVisibility(inputToChangeVisibility) {
+    inputToChangeVisibility.type = (inputToChangeVisibility.type === 'password') ? 'text' : 'password';
 }
 
 function validateName(nameToValidate) {
