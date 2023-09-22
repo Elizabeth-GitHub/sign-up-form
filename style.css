@@ -67,13 +67,14 @@ label {
     letter-spacing: 0.1rem;
 }
 
-button {
+#createaccount-button {
     background-color: var(--grayish-green);
-
     width: 7vw;
     height: 4vh;
     border-radius: 10px;
     font-weight: 600;
+    margin-top: 2.5em;
+    margin-bottom: 3em;
 }
 
 .container {
@@ -96,10 +97,10 @@ button {
     font-weight: 600;
 }
 
-#right-column button {
+/*#right-column button {
     margin-top: 2.5em;
     margin-bottom: 3em;
-}
+}*/
 
 .field {
     flex: 40%;
@@ -225,11 +226,46 @@ button {
 
 .input:has(input.completed)::after {
     content: '';
-    width: 5%; 
+    width: 7%; 
     height: 60%;
-    background-image: url('images/green-tick1.png');
+    background-image: url('images/green-tick.png');
     background-repeat: no-repeat;
-    background-size: 100% auto; 
+    background-size: 80% auto; 
     margin-top: 0.2em; 
-    margin-left: 0.2em;;
+    margin-left: 0.2em;
 }
+
+/*.hidden-visibility::after {
+    content: '';
+    width: 7%; 
+    height: 80%;
+    background-image: url('images/eyeicon-black.png');
+    background-repeat: no-repeat;
+    background-size: 110% auto; 
+    margin-top: 0.4em; 
+    margin-left: 0.2em;
+}*/
+
+button.changevisibility-button {
+    background-color: white;
+    background-image: url('images/eyeicon-black.png');
+    width: 7%; 
+    height: 80%;
+    background-repeat: no-repeat;
+    background-size: 110% auto; 
+    margin-top: 0.5em; 
+    margin-left: 0.2em;
+    border: none;
+}
+
+button.changevisibility-button.visible {
+    background-image: url('images/eyeicon-grey.png');
+    width: 7%; 
+    height: 80%;
+    background-repeat: no-repeat;
+    background-size: 110% auto; 
+    margin-top: 0.5em; 
+    margin-left: 0.2em;
+    border: none;
+}
+

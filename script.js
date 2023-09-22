@@ -15,6 +15,7 @@ const password = document.getElementById('password');
 const errorPassword = document.getElementById('password-error');
 const confirmPassword = document.getElementById('confirm-password');
 const errorConfirmPassword = document.getElementById('confirmpassword-error');
+const buttonsChangeVisibility = document.querySelectorAll('.changevisibility-button');
 /////
 nameFields.forEach(({inputName, errorName}) => {
     inputName.addEventListener('input', () => {
@@ -47,6 +48,22 @@ confirmPassword.addEventListener('input', () => {
 
     handleValidityStatus(confirmPassword, errorConfirmPassword, isValidConfirmPassword);
 })
+
+buttonsChangeVisibility.forEach((buttonChangeVisibility) => {
+    buttonChangeVisibility.addEventListener('click', (event) => {
+        const fieldToHideVisibility = document.getElementById(event.target.getAttribute('data-target'));
+        console.log(fieldToHideVisibility);
+
+        if (fieldToHideVisibility.type === 'password') {
+            fieldToHideVisibility.type = 'text';
+        } else {
+            fieldToHideVisibility.type = 'password';
+        }
+        buttonChangeVisibility.classList.toggle('visible');
+    });
+
+
+    })
 /////
 function handleValidityStatus(fieldInput, fieldError, isValidInput) {
     if (isValidInput) {
