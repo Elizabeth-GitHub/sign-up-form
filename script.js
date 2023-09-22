@@ -11,7 +11,11 @@ const email = document.getElementById('email');
 const errorEmail =  document.getElementById('email-error')
 const phone = document.getElementById('phone');
 const errorPhone = document.getElementById('phone-error');
-
+const password = document.getElementById('password');
+const errorPassword = document.getElementById('password-error');
+const confirmPassword = document.getElementById('confirm-password');
+const errorConfirmPassword = document.getElementById('confirmpassword-error');
+/////
 nameFields.forEach(({inputName, errorName}) => {
     inputName.addEventListener('input', () => {
         const isValidName = validateName(inputName.value);
@@ -32,6 +36,18 @@ phone.addEventListener('input', () => {
     handleValidityStatus(phone, errorPhone, isValidPhone);
 })
 
+password.addEventListener('input', () => {
+    const isValidPassword = validatePassword(password.value);
+
+    handleValidityStatus(password, errorPassword, isValidPassword);
+})
+
+confirmPassword.addEventListener('input', () => {
+    const isValidConfirmPassword = validateConfirmPassword(confirmPassword.value) 
+
+    handleValidityStatus(confirmPassword, errorConfirmPassword, isValidConfirmPassword);
+})
+/////
 function handleValidityStatus(fieldInput, fieldError, isValidInput) {
     if (isValidInput) {
         clearError(fieldError);
@@ -39,6 +55,8 @@ function handleValidityStatus(fieldInput, fieldError, isValidInput) {
         toggleValidity(fieldInput);
     } else {
         showError(fieldError);
+        toggleCompletion(fieldInput);
+        toggleValidity(fieldInput, false);
     }
 }
 
@@ -77,25 +95,37 @@ function validatePhone(phoneToValidate) {
     return regexPhone.test(phoneToValidate);
 }
 
+function validatePassword(passwordToValidate) {
+    const regexPassword = /^.{6,}$|^$/;/*at least six symbols*/
+    
+    return regexPassword.test(passwordToValidate);
+}
+
+function validateConfirmPassword(confirmPasswordToValidate) {
+    return confirmPasswordToValidate === password.value;
+}
+
 function showError(errorToShow) {
     let errorMessage = '';
+    console.log(errorToShow.id.slice(0, -6));
 
     switch (errorToShow.id.slice(0, -6)) { /*error id is always in the format '-error', for example, 'email-error'*/
         case 'email':
-        errorMessage = 'Invalid email address.';
-        break;
+            errorMessage = 'Invalid email address.';
+            break;
         case 'phone':
-        errorMessage = 'Required format: (+dial code)##########.';
-        break;
+            errorMessage = 'Required format: (+dial code)##########.';
+            break;
+        case 'password':
+            errorMessage = 'Password must be at least six characters.'
+            break;
+        case 'confirmpassword':
+            errorMessage = 'Passwords do not match. Please try again.'
+            break;
         default:
-        errorMessage = `Your ${getInvalidName(errorToShow.id)} should consist of letters only.`
+            errorMessage = `Your ${getInvalidName(errorToShow.id)} should consist of letters only.`
     }
-
     errorToShow.textContent = errorMessage;
-}
-
-function showErrorName(errorNameToShow) {
-    errorNameToShow.textContent = `Your ${getInvalidName(errorNameToShow.id)} should consist of letters only.`;
 }
 
 function getInvalidName(nameToTransform) {
@@ -106,12 +136,4 @@ function getInvalidName(nameToTransform) {
 function clearError(errorToClear) {
     errorToClear.textContent = '';
     errorToClear.classList.remove('active');
-}
-
-function showErrorEmail() {
-    errorEmail.textContent = 'Invalid email address.';
-}
-
-function showErrorPhone() {
-    errorPhone.textContent = 'Required format: (+dial code)##########.'
 }
