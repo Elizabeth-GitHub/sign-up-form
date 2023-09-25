@@ -55,23 +55,27 @@
                             <div class="container field">
                                 <label for="phone">PHONE NUMBER</label>
                                 <div class="container input">
-                                    <input type="tel" id="phone" name="phone" placeholder="ex.: +(123)1234567890">
+                                    <input type="tel" id="phone" name="phone" placeholder="ex.: (+123)1234567890">
                                 </div>
                                 <span id="phone-error" class="error" aria-live="polite"></span>
                             </div>
                             <div class="container field">
                                 <label for="password" class="required">PASSWORD</label>
-                                <div class="container input">
-                                    <input type="password" id="password" name="password" required placeholder="at least six characters">
+                                <div class="container password-andbutton">
+                                    <div class="container input">
+                                        <input type="password" id="password" name="password" required placeholder="at least six characters">
+                                    </div>
                                     <button id="changevisibility-password" class="changevisibility-button" type="button" data-target="password"></button>
                                 </div>
                                 <span id="password-error" class="error" aria-live="polite"></span>
                             </div>
                             <div class="container field">
                                 <label for="confirm-password" class="required">CONFIRM PASSWORD</label>
-                                <div class="container input">
-                                    <input type="password" id="confirm-password" name="confirm-password" required>
-                                    <button id="changevisibility-confirmpassword" class="changevisibility-button" type="button" data-target="confirm-password"></button>
+                                <div class="container password-andbutton">
+                                    <div class="container input">
+                                        <input type="password" id="confirm-password" name="confirm-password" required>
+                                    </div>
+                                <button id="changevisibility-confirmpassword" class="changevisibility-button" type="button" data-target="confirm-password"></button>
                                 </div>
                                 <span id="confirmpassword-error" class="error" aria-live="polite"></span>
                             </div>
