@@ -38,6 +38,13 @@ form p:first-child {
     padding-bottom: 1.5rem;;
 }
 
+label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--matt-black);
+    letter-spacing: 0.1rem;
+}
+
 input {
     appearance: none;
     -webkit-appearance: none;
@@ -60,12 +67,7 @@ input:focus {
     border-color: green;
 }
 
-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--matt-black);
-    letter-spacing: 0.1rem;
-}
+
 
 #createaccount-button {
     background-color: var(--grayish-green);
@@ -251,22 +253,16 @@ button.changevisibility-button {
     background-repeat: no-repeat;
     background-size: 110% auto; 
     margin-top: 0.5em; 
-    /*margin-left: 0.2em;*/
     border: none;
+    margin-left: -5%;
 }
 
 button.changevisibility-button.visible {
     background-image: url('images/eyeicon-grey.png');
-    width: 7%; 
-    height: 80%;
-    background-repeat: no-repeat;
-    background-size: 110% auto; 
-    margin-top: 0.5em; 
-    /*margin-left: 0.2em;*/
-    border: none;
 }
 
 .password-andbutton {
     flex-direction: row;
 }
+
 

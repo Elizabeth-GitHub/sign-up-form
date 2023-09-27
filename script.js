@@ -15,6 +15,8 @@ const password = document.getElementById('password');
 const errorPassword = document.getElementById('password-error');
 const confirmPassword = document.getElementById('confirm-password');
 const errorConfirmPassword = document.getElementById('confirmpassword-error');
+const buttonChangeVisibilityPassword = document.getElementById('changevisibility-password');
+const buttonChangeVisibilityConfirmPassword = document.getElementById('changevisibility-confirmpassword');
 const buttonsChangeVisibility = document.querySelectorAll('.changevisibility-button');
 /////
 nameFields.forEach(({inputName, errorName}) => {
@@ -41,12 +43,14 @@ password.addEventListener('input', () => {
     const isValidPassword = validatePassword(password.value);
 
     handleValidityStatus(password, errorPassword, isValidPassword);
+    handleButtonChangeVisibilityPlace(password, buttonChangeVisibilityPassword)
 })
 
 confirmPassword.addEventListener('input', () => {
     const isValidConfirmPassword = validateConfirmPassword(confirmPassword.value) 
 
     handleValidityStatus(confirmPassword, errorConfirmPassword, isValidConfirmPassword);
+    handleButtonChangeVisibilityPlace(confirmPassword, buttonChangeVisibilityConfirmPassword)
 })
 
 buttonsChangeVisibility.forEach((buttonChangeVisibility) => {
@@ -63,12 +67,11 @@ buttonsChangeVisibility.forEach((buttonChangeVisibility) => {
 function handleValidityStatus(fieldInput, fieldError, isValidInput) {
     if (isValidInput) {
         clearError(fieldError);
-        toggleCompletion(fieldInput);
         toggleValidity(fieldInput);
+        toggleCompletion(fieldInput); 
     } else {
         showError(fieldError);
-        toggleCompletion(fieldInput);
-        toggleValidity(fieldInput, false);
+        toggleValidity(fieldInput, false); /*We don't need `toggleCompletion` here bacause 'completed' class is removed in the `toggleValidity` function*/ 
     }
 }
 
@@ -85,12 +88,22 @@ function toggleValidity(fieldToToggleValidity, toValid = true) {
     });
 }
 
+function moveVIsibilityButton(buttonVisibilityToMove, isCompleted = true) {
+    buttonVisibilityToMove.style.marginLeft = isCompleted ? '0' : '-5%';
+}
+
 function toggleCompletion(fieldToToggleCompletion) {
     fieldToToggleCompletion.classList.toggle('completed', !checkIfEmpty(fieldToToggleCompletion.value));
 }
 
 function toggleVisibility(inputToChangeVisibility) {
     inputToChangeVisibility.type = (inputToChangeVisibility.type === 'password') ? 'text' : 'password';
+}
+
+function handleButtonChangeVisibilityPlace(field, buttonToReplace) {
+    const isShouldMove = field.classList.contains('completed');
+
+    moveVIsibilityButton(buttonToReplace, isShouldMove);
 }
 
 function validateName(nameToValidate) {
@@ -123,7 +136,6 @@ function validateConfirmPassword(confirmPasswordToValidate) {
 
 function showError(errorToShow) {
     let errorMessage = '';
-    console.log(errorToShow.id.slice(0, -6));
 
     switch (errorToShow.id.slice(0, -6)) { /*error id is always in the format '-error', for example, 'email-error'*/
         case 'email':
