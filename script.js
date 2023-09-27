@@ -18,6 +18,8 @@ const errorConfirmPassword = document.getElementById('confirmpassword-error');
 const buttonChangeVisibilityPassword = document.getElementById('changevisibility-password');
 const buttonChangeVisibilityConfirmPassword = document.getElementById('changevisibility-confirmpassword');
 const buttonsChangeVisibility = document.querySelectorAll('.changevisibility-button');
+const buttonCreateAccount = document.getElementById('createaccount-button');
+const allRequiredInputs = document.querySelectorAll('[required]');
 /////
 nameFields.forEach(({inputName, errorName}) => {
     inputName.addEventListener('input', () => {
@@ -59,10 +61,20 @@ buttonsChangeVisibility.forEach((buttonChangeVisibility) => {
 
         toggleVisibility(elementToChangeVisibility);
         buttonChangeVisibility.classList.toggle('visible');
+    });
+})
+
+buttonCreateAccount.addEventListener('click', (event) => {
+    for (var requiredInput in allRequiredInputs) {
+        if (!checkIfEmpty(requiredInput)) {
+            alert('All required fields should be filled in');
+            event.preventDefault();
+            makeEmptyInvalid();
+
+            break;
+        }
+    }
 });
-
-
-    })
 /////
 function handleValidityStatus(fieldInput, fieldError, isValidInput) {
     if (isValidInput) {
@@ -73,6 +85,14 @@ function handleValidityStatus(fieldInput, fieldError, isValidInput) {
         showError(fieldError);
         toggleValidity(fieldInput, false); /*We don't need `toggleCompletion` here bacause 'completed' class is removed in the `toggleValidity` function*/ 
     }
+}
+
+function makeEmptyInvalid() {
+    allRequiredInputs.forEach((inputRequired) => {
+        if (!inputRequired.classList.contains('completed')) {
+            toggleValidity(inputRequired, false);
+        }
+    })
 }
 
 function checkIfEmpty(inputToCheckEmptiness) {
