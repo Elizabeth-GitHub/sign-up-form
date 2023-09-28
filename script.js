@@ -19,7 +19,9 @@ const buttonChangeVisibilityPassword = document.getElementById('changevisibility
 const buttonChangeVisibilityConfirmPassword = document.getElementById('changevisibility-confirmpassword');
 const buttonsChangeVisibility = document.querySelectorAll('.changevisibility-button');
 const buttonCreateAccount = document.getElementById('createaccount-button');
-const allRequiredInputs = document.querySelectorAll('[required]');
+const allInputs = Array.from(document.querySelectorAll('input'));
+console.log(`allInputs: ${allInputs}`);
+const allRequiredInputs = Array.from(document.querySelectorAll('[required]'));
 /////
 nameFields.forEach(({inputName, errorName}) => {
     inputName.addEventListener('input', () => {
@@ -55,6 +57,22 @@ confirmPassword.addEventListener('input', () => {
     handleButtonChangeVisibilityPlace(confirmPassword, buttonChangeVisibilityConfirmPassword)
 })
 
+buttonCreateAccount.addEventListener('click', (event) => {
+    let isInvalidInput = checkInvalidInputs();
+    let isEmptyRequiredInput = checkEmptyRequiredInputs();
+
+    console.log(isEmptyRequiredInput);
+
+    if(isInvalidInput) {
+        alert('There are invalid inputs on the page.');
+    } else if (isEmptyRequiredInput) {
+        alert('All required fields should be filled in');
+        makeEmptyFieldInvalid();
+    }  
+
+    event.preventDefault(); // As well, this is not a real form. In other cases, preventDefault() should be used only if the conditions were met.
+})
+
 buttonsChangeVisibility.forEach((buttonChangeVisibility) => {
     buttonChangeVisibility.addEventListener('click', (event) => {
         const elementToChangeVisibility = document.getElementById(event.target.getAttribute('data-target'));
@@ -63,19 +81,17 @@ buttonsChangeVisibility.forEach((buttonChangeVisibility) => {
         buttonChangeVisibility.classList.toggle('visible');
     });
 })
-
-buttonCreateAccount.addEventListener('click', (event) => {
-    for (var requiredInput in allRequiredInputs) {
-        if (!checkIfEmpty(requiredInput)) {
-            alert('All required fields should be filled in');
-            event.preventDefault();
-            makeEmptyInvalid();
-
-            break;
-        }
-    }
-});
 /////
+function checkInvalidInputs() {
+    return allInputs.some(input => input.classList.contains('invalid'));
+}
+
+function checkEmptyRequiredInputs() {
+    console.log(`Required inputs: ${allRequiredInputs}`);
+    console.log(`Result: ${allRequiredInputs.some(requiredInput => checkIfEmpty(requiredInput))}`);
+    return allRequiredInputs.some(requiredInput => checkIfEmpty(Object.keys(requiredInput)));
+}
+
 function handleValidityStatus(fieldInput, fieldError, isValidInput) {
     if (isValidInput) {
         clearError(fieldError);
@@ -87,7 +103,7 @@ function handleValidityStatus(fieldInput, fieldError, isValidInput) {
     }
 }
 
-function makeEmptyInvalid() {
+function makeEmptyFieldInvalid() {
     allRequiredInputs.forEach((inputRequired) => {
         if (!inputRequired.classList.contains('completed')) {
             toggleValidity(inputRequired, false);
