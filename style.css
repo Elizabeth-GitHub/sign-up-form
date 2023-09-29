@@ -59,24 +59,20 @@ input:focus {
     border-color: var(--blue);
 }
 
-.invalid {
-    border-color: var(--red);
+button.changevisibility-button {
+    background-color: white;
+    background-image: url('images/eyeicon-black.png');
+    width: 7%; 
+    height: 80%;
+    background-repeat: no-repeat;
+    background-size: 110% auto; 
+    margin-top: 0.5em; 
+    border: none;
+    margin-left: -5%;
 }
 
-.completed{
-    border-color: green;
-}
-
-
-
-#createaccount-button {
-    background-color: var(--grayish-green);
-    width: 7vw;
-    height: 4vh;
-    border-radius: 10px;
-    font-weight: 600;
-    margin-top: 2.5em;
-    margin-bottom: 3em;
+button.changevisibility-button.visible {
+    background-image: url('images/eyeicon-grey.png');
 }
 
 .container {
@@ -85,34 +81,60 @@ input:focus {
     width: 100%;
 }
 
-.required:after {
-    content:"*";
-  }
-
-#introducing-text p:last-child {
-    margin-top: 3em;
-}
-
-#green-link {
-    text-decoration: none;
-    color: var(--grayish-green);
+.big-font {
+    font-size: 1.75em;
     font-weight: 600;
 }
 
-/*#right-column button {
-    margin-top: 2.5em;
-    margin-bottom: 3em;
-}*/
+.white-text {
+    color: aliceblue;
+}
+
+.required:after {
+    content:"*";
+}
 
 .field {
     flex: 40%;
     margin-bottom: 1.5em;
-    /*border: 2px pink solid;*/
 }
 
-.big-font {
-    font-size: 1.75em;
-    font-weight: 600;
+.container-input {
+    flex-direction: row;
+    width: 93%;
+}
+
+.container-input:has(input.completed)::after {
+    content: '';
+    width: 7%; 
+    height: 60%;
+    background-image: url('images/green-tick.png');
+    background-repeat: no-repeat;
+    background-size: 80% auto; 
+    margin-top: 0.2em; 
+    margin-left: 0.2em;
+}
+
+.invalid {
+    border-color: var(--red);
+}
+
+.completed{
+    border-color: green;
+}
+
+.error {
+    width: 100%;
+    font-size: 80%;
+    color: var(--red);
+}
+  
+.error.active {
+    padding: 0.3em;
+}
+
+.password-andbutton {
+    flex-direction: row;
 }
 
 #main-container {
@@ -124,8 +146,7 @@ input:focus {
 #left-column {
     background-image: url(./images/background.jpg);
     width: 40%;
-    position: relative;
-    
+    position: relative; 
 }
 
 #white-background {
@@ -135,10 +156,6 @@ input:focus {
 
 #white-background, .grey-background {
     padding-left: 2vw;
-}
-
-.white-text {
-    color: aliceblue;
 }
 
 #logo {
@@ -188,18 +205,21 @@ input:focus {
     margin-top: 15vh;
 }
 
+#introducing-text p:last-child {
+    margin-top: 3em;
+}
+
 #inputs {
     flex-direction: row;
     flex-wrap: wrap;
-    /*width: 35vw;*/
     width: 60%;
 }
 
-#inputs .container.field:nth-child(even):not(.input){
+#inputs .container.field:nth-child(even) {
     margin-left: 15%;
 }
 
-#container-button::before {
+#container-submitbutton::before {
     content: '';
     width: 59.5vw; /* The width of the right column is 60vw and the left margin of the shadow is o.5vw.*/
     height: 1vh;
@@ -210,59 +230,18 @@ input:focus {
     background-image: linear-gradient(to bottom, var(--transculent-greysilver), var(--background-grey));
 }
 
-.error {
-    width: 100%;
-    padding: 0;
-    font-size: 80%;
-    color: var(--red);
-  }
-  
-  .error.active {
-    padding: 0.3em;
-  }
-
-  .input-withpseudoelement {
-    position: relative;
-    border: 1px black solid;
-  }
-
-  .input {
-    flex-direction: row;
-    /*position: relative;*/
-    padding: 0;
-    /*width: 100%;*/
-    width: 93%;
-  }
-
-.input:has(input.completed)::after {
-    content: '';
-    width: 7%; 
-    height: 60%;
-    background-image: url('images/green-tick.png');
-    background-repeat: no-repeat;
-    background-size: 80% auto; 
-    margin-top: 0.2em; 
-    margin-left: 0.2em;
+#createaccount-button {
+    background-color: var(--grayish-green);
+    width: 7vw;
+    height: 4vh;
+    border-radius: 10px;
+    font-weight: 600;
+    margin-top: 2.5em;
+    margin-bottom: 3em;
 }
 
-button.changevisibility-button {
-    background-color: white;
-    background-image: url('images/eyeicon-black.png');
-    width: 7%; 
-    height: 80%;
-    background-repeat: no-repeat;
-    background-size: 110% auto; 
-    margin-top: 0.5em; 
-    border: none;
-    margin-left: -5%;
+#green-link {
+    text-decoration: none;
+    color: var(--grayish-green);
+    font-weight: 600;
 }
-
-button.changevisibility-button.visible {
-    background-image: url('images/eyeicon-grey.png');
-}
-
-.password-andbutton {
-    flex-direction: row;
-}
-
-

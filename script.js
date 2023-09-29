@@ -20,7 +20,6 @@ const buttonChangeVisibilityConfirmPassword = document.getElementById('changevis
 const buttonsChangeVisibility = document.querySelectorAll('.changevisibility-button');
 const buttonCreateAccount = document.getElementById('createaccount-button');
 const allInputs = Array.from(document.querySelectorAll('input'));
-console.log(`allInputs: ${allInputs}`);
 const allRequiredInputs = Array.from(document.querySelectorAll('[required]'));
 /////
 nameFields.forEach(({inputName, errorName}) => {
@@ -57,11 +56,18 @@ confirmPassword.addEventListener('input', () => {
     handleButtonChangeVisibilityPlace(confirmPassword, buttonChangeVisibilityConfirmPassword)
 })
 
+buttonsChangeVisibility.forEach((buttonChangeVisibility) => {
+    buttonChangeVisibility.addEventListener('click', (event) => {
+        const elementToChangeVisibility = document.getElementById(event.target.getAttribute('data-target'));
+
+        toggleVisibility(elementToChangeVisibility);
+        buttonChangeVisibility.classList.toggle('visible');
+    });
+})
+
 buttonCreateAccount.addEventListener('click', (event) => {
     let isInvalidInput = checkInvalidInputs();
     let isEmptyRequiredInput = checkEmptyRequiredInputs();
-
-    console.log(isEmptyRequiredInput);
 
     if(isInvalidInput) {
         alert('There are invalid inputs on the page.');
@@ -72,49 +78,18 @@ buttonCreateAccount.addEventListener('click', (event) => {
 
     event.preventDefault(); // As well, this is not a real form. In other cases, preventDefault() should be used only if the conditions were met.
 })
-
-buttonsChangeVisibility.forEach((buttonChangeVisibility) => {
-    buttonChangeVisibility.addEventListener('click', (event) => {
-        const elementToChangeVisibility = document.getElementById(event.target.getAttribute('data-target'));
-
-        toggleVisibility(elementToChangeVisibility);
-        buttonChangeVisibility.classList.toggle('visible');
-    });
-})
 /////
-function checkInvalidInputs() {
-    return allInputs.some(input => input.classList.contains('invalid'));
+function validateName(nameToValidate) {
+    const regexName = /^(\p{L}+)?$/u; /* The regex allows an empty entry as it will be checked before the sumbission.*/
+    
+    return regexName.test(nameToValidate);  
 }
 
-function checkEmptyRequiredInputs() {
-    console.log(`Required inputs: ${allRequiredInputs}`);
-    console.log(`Result: ${allRequiredInputs.some(requiredInput => checkIfEmpty(requiredInput))}`);
-    return allRequiredInputs.some(requiredInput => checkIfEmpty(Object.keys(requiredInput)));
+function clearError(errorToClear) {
+    errorToClear.textContent = '';
+    errorToClear.classList.remove('active');
 }
 
-function handleValidityStatus(fieldInput, fieldError, isValidInput) {
-    if (isValidInput) {
-        clearError(fieldError);
-        toggleValidity(fieldInput);
-        toggleCompletion(fieldInput); 
-    } else {
-        showError(fieldError);
-        toggleValidity(fieldInput, false); /*We don't need `toggleCompletion` here bacause 'completed' class is removed in the `toggleValidity` function*/ 
-    }
-}
-
-function makeEmptyFieldInvalid() {
-    allRequiredInputs.forEach((inputRequired) => {
-        if (!inputRequired.classList.contains('completed')) {
-            toggleValidity(inputRequired, false);
-        }
-    })
-}
-
-function checkIfEmpty(inputToCheckEmptiness) {
-    return inputToCheckEmptiness.length === 0;
-}
- 
 function toggleValidity(fieldToToggleValidity, toValid = true) {
     const [classToAdd, classesToRemove] = toValid ? ['valid', ['invalid']] : ['invalid', ['valid', 'completed']];
 
@@ -124,50 +99,17 @@ function toggleValidity(fieldToToggleValidity, toValid = true) {
     });
 }
 
-function moveVIsibilityButton(buttonVisibilityToMove, isCompleted = true) {
-    buttonVisibilityToMove.style.marginLeft = isCompleted ? '0' : '-5%';
+function checkIfEmpty(inputToCheckEmptiness) {
+    return inputToCheckEmptiness.length === 0;
 }
 
 function toggleCompletion(fieldToToggleCompletion) {
     fieldToToggleCompletion.classList.toggle('completed', !checkIfEmpty(fieldToToggleCompletion.value));
 }
 
-function toggleVisibility(inputToChangeVisibility) {
-    inputToChangeVisibility.type = (inputToChangeVisibility.type === 'password') ? 'text' : 'password';
-}
-
-function handleButtonChangeVisibilityPlace(field, buttonToReplace) {
-    const isShouldMove = field.classList.contains('completed');
-
-    moveVIsibilityButton(buttonToReplace, isShouldMove);
-}
-
-function validateName(nameToValidate) {
-    const regexName = /^(\p{L}+)?$/u; /* The regex allows an empty entry as it will be checked before the sumbission.*/
-    
-    return regexName.test(nameToValidate);  
-}
-
-function validateEmail(emailToValidate) {
-    const regexEmail =  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$|^$/;
-
-    return regexEmail.test(emailToValidate);
-}
-
-function validatePhone(phoneToValidate) {
-    const regexPhone = /^\(\+\d+\)\d{10}$|^$//*(+886)1234567890 or empty*/
-
-    return regexPhone.test(phoneToValidate);
-}
-
-function validatePassword(passwordToValidate) {
-    const regexPassword = /^.{6,}$|^$/;/*at least six symbols*/
-    
-    return regexPassword.test(passwordToValidate);
-}
-
-function validateConfirmPassword(confirmPasswordToValidate) {
-    return confirmPasswordToValidate === password.value;
+function getInvalidName(nameToTransform) {
+    const removeError = nameToTransform.replace('-error', ''); /*nameToTranform can be either firstName-error or lastName-error*/
+    return removeError[0].toLowerCase() + removeError.slice(1).replace('name', ' name');
 }
 
 function showError(errorToShow) {
@@ -192,12 +134,65 @@ function showError(errorToShow) {
     errorToShow.textContent = errorMessage;
 }
 
-function getInvalidName(nameToTransform) {
-    const removeError = nameToTransform.replace('-error', ''); /*nameToTranform can be either firstName-error or lastName-error*/
-    return removeError[0].toLowerCase() + removeError.slice(1).replace('name', ' name');
+function handleValidityStatus(fieldInput, fieldError, isValidInput) {
+    if (isValidInput) {
+        clearError(fieldError);
+        toggleValidity(fieldInput);
+        toggleCompletion(fieldInput); 
+    } else {
+        showError(fieldError);
+        toggleValidity(fieldInput, false); //We don't need `toggleCompletion` here bacause 'completed' class is removed in the `toggleValidity` function
+    }
 }
 
-function clearError(errorToClear) {
-    errorToClear.textContent = '';
-    errorToClear.classList.remove('active');
+function validateEmail(emailToValidate) {
+    const regexEmail =  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$|^$/;
+
+    return regexEmail.test(emailToValidate);
+}
+
+function validatePhone(phoneToValidate) {
+    const regexPhone = /^\(\+\d+\)\d{10}$|^$/;//(+886)1234567890 or empty
+
+    return regexPhone.test(phoneToValidate);
+}
+
+function validatePassword(passwordToValidate) {
+    const regexPassword = /^.{6,}$|^$/;//at least six symbols
+    
+    return regexPassword.test(passwordToValidate);
+}
+
+function moveVIsibilityButton(buttonVisibilityToMove, isCompleted = true) {
+    buttonVisibilityToMove.style.marginLeft = isCompleted ? '0' : '-5%';
+}
+
+function handleButtonChangeVisibilityPlace(field, buttonToReplace) {
+    const isShouldMove = field.classList.contains('completed');
+
+    moveVIsibilityButton(buttonToReplace, isShouldMove);
+}
+
+function toggleVisibility(inputToChangeVisibility) {
+    inputToChangeVisibility.type = (inputToChangeVisibility.type === 'password') ? 'text' : 'password';
+}
+
+function validateConfirmPassword(confirmPasswordToValidate) {
+    return confirmPasswordToValidate === password.value;
+}
+
+function checkInvalidInputs() {
+    return allInputs.some(input => input.classList.contains('invalid'));
+}
+
+function checkEmptyRequiredInputs() {
+    return allRequiredInputs.some(requiredInput => checkIfEmpty(Object.keys(requiredInput)));
+}
+
+function makeEmptyFieldInvalid() {
+    allRequiredInputs.forEach((inputRequired) => {
+        if (!inputRequired.classList.contains('completed')) {
+            toggleValidity(inputRequired, false);
+        }
+    })
 }
