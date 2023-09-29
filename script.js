@@ -74,7 +74,10 @@ buttonCreateAccount.addEventListener('click', (event) => {
     } else if (isEmptyRequiredInput) {
         alert('All required fields should be filled in');
         makeEmptyFieldInvalid();
-    }  
+    } else {
+        alert('Congratulations! Your account has been created.');
+        clearForm();
+    }
 
     event.preventDefault(); // As well, this is not a real form. In other cases, preventDefault() should be used only if the conditions were met.
 })
@@ -186,7 +189,7 @@ function checkInvalidInputs() {
 }
 
 function checkEmptyRequiredInputs() {
-    return allRequiredInputs.some(requiredInput => checkIfEmpty(Object.keys(requiredInput)));
+    return allRequiredInputs.some(requiredInput => checkIfEmpty(requiredInput.value));
 }
 
 function makeEmptyFieldInvalid() {
@@ -195,4 +198,9 @@ function makeEmptyFieldInvalid() {
             toggleValidity(inputRequired, false);
         }
     })
+}
+
+function clearForm() {
+    form.reset();
+    allInputs.forEach((inputToClear) => inputToClear.classList.remove('valid', 'completed'));
 }
